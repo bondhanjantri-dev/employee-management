@@ -10,6 +10,8 @@ Mini project Employee Management yang dibuat menggunakan Angular 20.
 * Validasi login menggunakan data dummy (hardcoded).
 * Proteksi halaman menggunakan Auth Guard.
 
+<img src="./screenshots/login.png" width="900">
+
 ### Employee List Page
 
 * Menampilkan lebih dari 100 data employee dummy.
@@ -24,6 +26,8 @@ Mini project Employee Management yang dibuat menggunakan Angular 20.
 * Edit Employee.
 * Delete Employee dengan notifikasi.
 
+<img src="./screenshots/employeelist.png" width="900">
+
 ### Add Employee Page
 
 * Seluruh field wajib diisi.
@@ -32,12 +36,18 @@ Mini project Employee Management yang dibuat menggunakan Angular 20.
 * Birth Date tidak boleh melebihi tanggal hari ini.
 * Group menggunakan dropdown dengan data dummy.
 
+<img src="./screenshots/addemployee.png" width="900">
+
 ### Employee Detail Page
 
 * Menampilkan detail employee.
 * Format salary menggunakan format Rupiah.
 * Tombol kembali ke Employee List.
 * State pencarian dan pagination tetap dipertahankan saat kembali ke halaman list.
+
+<img src="./screenshots/employeedetail.png" width="900">
+
+<img src="./screenshots/editemployee.png" width="900">
 
 ## Technology Stack
 
