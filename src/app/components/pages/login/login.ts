@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 //#region CLASS
 export class Login implements OnInit {
 
-    //#region ATTRIBUTE
+    //#region ATTRIBUTES
 
     private readonly auth = inject(AuthService);
 

@@ -36,6 +36,7 @@ type PageMode = 'add' | 'edit' | 'detail';
 //#endregion
 
 //#region CLASS
+
 export class EmployeeDetail implements OnInit {
     //#region ATTRIBUTE
 
@@ -73,7 +74,7 @@ export class EmployeeDetail implements OnInit {
 
     //#endregion
 
-    //#region GETTER
+    //#region GET MODE
 
     get isAddMode(): boolean {
         return this.mode === 'add';

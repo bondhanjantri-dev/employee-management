@@ -11,6 +11,7 @@ import { ToastService } from '../../../../services/toast.service';
 //#endregion
 
 //#region COMPONENT
+
 @Component({
     selector: 'app-employeelist',
     standalone: true,
