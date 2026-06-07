@@ -1,0 +1,93 @@
+<div class="login-page">
+    <div class="login-left">
+        <div class="brand">
+            <span class="brand-icon">⬡</span>
+            <span class="brand-name">EmpireHR</span>
+        </div>
+
+        <h1>
+            Manage your <br />
+            <span class="highlight">workforce</span><br />
+            with ease.
+        </h1>
+
+        <p class="tagline">A modern employee management platform built for growing teams.</p>
+
+        <div class="features">
+            <div class="feature-item"><span>✦</span> 100+ Employee Records</div>
+
+            <div class="feature-item"><span>✦</span> Real-time Search & Filter</div>
+
+            <div class="feature-item"><span>✦</span> Secure Role-Based Access</div>
+        </div>
+    </div>
+
+    <div class="login-right">
+        <div class="login-card">
+            <h2>Welcome back</h2>
+
+            <p class="subtitle">Sign in to your account to continue</p>
+
+            <div class="demo-hint">
+                <span>🔑</span>
+
+                <div>
+                    <strong>Demo credentials</strong>
+                    <p>admin / admin123 · hr / hr123</p>
+                </div>
+            </div>
+
+            @if (error) {
+                <div class="alert-error">
+                    {{ error }}
+                </div>
+            }
+
+            <form (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label>Username</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        [(ngModel)]="username"
+                        name="username"
+                        placeholder="Enter username"
+                        autocomplete="username"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+
+                    <div class="input-wrapper">
+                        <input
+                            [type]="showPassword ? 'text' : 'password'"
+                            class="form-control"
+                            [(ngModel)]="password"
+                            name="password"
+                            placeholder="Enter password"
+                            autocomplete="current-password"
+                        />
+
+                        <button
+                            type="button"
+                            class="toggle-pw"
+                            (click)="showPassword = !showPassword"
+                        >
+                            {{ showPassword ? '🙈' : '👁️' }}
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="loading">
+                    @if (loading) {
+                        <span class="spinner"></span>
+                    }
+
+                    {{ loading ? 'Signing in...' : 'Sign In' }}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

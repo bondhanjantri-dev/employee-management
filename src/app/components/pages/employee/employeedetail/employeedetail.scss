@@ -1,0 +1,344 @@
+// PAGE HEADER
+
+.page-header {
+    margin-bottom: 2rem;
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-bottom: 0.75rem;
+
+        color: var(--primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+
+        opacity: 0.85;
+        transition: all 0.2s ease;
+
+        &:hover {
+            opacity: 1;
+            transform: translateX(-2px);
+        }
+    }
+
+    .page-title {
+        font-size: clamp(1.6rem, 2vw, 2rem);
+        font-weight: 800;
+        color: var(--text-primary);
+        margin: 0;
+    }
+
+    .page-sub {
+        margin-top: 0.35rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.emp-id-badge {
+    padding: 0.5rem 1rem;
+
+    border-radius: 12px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-family: 'DM Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+// FORM CARD
+
+.form-card {
+    padding: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.section-title,
+.section-label {
+    grid-column: 1 / -1;
+
+    margin-top: 0.5rem;
+    padding-bottom: 0.6rem;
+
+    border-bottom: 1px solid var(--border);
+
+    color: var(--text-muted);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.req {
+    color: var(--danger);
+}
+
+.full-width,
+.full {
+    grid-column: 1 / -1;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 110px;
+}
+
+// DROPDOWN
+.dropdown-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 50;
+
+    max-height: 220px;
+    overflow-y: auto;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    box-shadow: var(--shadow);
+}
+
+.dropdown-item {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+
+    font-size: 0.9rem;
+
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: var(--primary-light);
+        color: var(--primary);
+    }
+}
+
+.dropdown-empty {
+    padding: 0.8rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+// FOOTER
+.form-footer,
+.card-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+
+    border-top: 1px solid var(--border);
+}
+
+// DETAIL
+.detail-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+// PROFILE CARD
+.profile-card {
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 24px;
+
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 800;
+
+    box-shadow: 0 12px 30px rgba(99, 102, 241, 0.25);
+}
+
+.profile-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.profile-username {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-family: 'DM Mono', monospace;
+}
+
+.profile-group {
+    padding: 0.45rem 0.9rem;
+
+    border-radius: 10px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+// DETAIL CARD
+.details-card {
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    color: var(--text-muted);
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.detail-value.mono {
+    font-family: 'DM Mono', monospace;
+}
+
+.detail-value.salary {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+
+    font-family: 'DM Mono', monospace;
+}
+
+@media (max-width: 1024px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        flex-direction: row;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .profile-avatar {
+        width: 72px;
+        height: 72px;
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-card,
+    .details-card,
+    .profile-card {
+        padding: 1.25rem;
+    }
+
+    .form-grid,
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .emp-id-badge {
+        width: fit-content;
+    }
+
+    .form-footer,
+    .card-footer {
+        flex-direction: column-reverse;
+    }
+
+    .form-footer .btn,
+    .card-footer .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-avatar {
+        width: 70px;
+        height: 70px;
+        border-radius: 18px;
+    }
+
+    .detail-value.salary {
+        font-size: 1.05rem;
+    }
+}

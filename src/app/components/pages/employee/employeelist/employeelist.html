@@ -1,0 +1,232 @@
+<div class="page-wrapper">
+    <!-- Header -->
+    <div class="page-header">
+        <div class="header-text">
+            <h1 class="page-title">Employees</h1>
+            <p class="page-sub">{{ filtered.length }} total records</p>
+        </div>
+
+        <a routerLink="/employees/add" class="btn btn-primary">
+            <span>＋</span>
+            <span class="btn-label">Add Employee</span>
+        </a>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="card search-bar">
+        <div class="search-fields">
+            <div class="form-group">
+                <label>Search by Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="searchName"
+                    placeholder="First name, last name, username…"
+                    (keyup.enter)="onSearch()"
+                />
+            </div>
+
+            <div class="form-group">
+                <label>Filter by Group</label>
+                <select class="form-control" [(ngModel)]="searchGroup">
+                    <option value="">All Groups</option>
+
+                    @for (g of groups; track g) {
+                        <option [value]="g">{{ g }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="search-actions">
+                <button class="btn btn-primary" (click)="onSearch()">Search</button>
+
+                <button class="btn btn-secondary" (click)="clearSearch()">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="card table-card">
+        <div class="table-header">
+            <div class="page-size-selector">
+                <span class="size-label">Show</span>
+
+                <select class="size-select" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                    @for (s of pageSizeOptions; track s) {
+                        <option [value]="s">{{ s }}</option>
+                    }
+                </select>
+
+                <span class="size-label">entries</span>
+            </div>
+
+            <span class="result-info">
+                {{ (page - 1) * pageSize + 1 }}
+                –
+                {{ Math.min(page * pageSize, filtered.length) }}
+                of
+                {{ filtered.length }}
+            </span>
+        </div>
+
+        <!-- Desktop Table -->
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th (click)="sort('id')" class="sortable"># {{ getSortIcon('id') }}</th>
+
+                        <th (click)="sort('firstName')" class="sortable">
+                            Name {{ getSortIcon('firstName') }}
+                        </th>
+
+                        <th (click)="sort('username')" class="sortable col-hide-md">
+                            Username {{ getSortIcon('username') }}
+                        </th>
+
+                        <th (click)="sort('group')" class="sortable col-hide-sm">
+                            Group {{ getSortIcon('group') }}
+                        </th>
+
+                        <th (click)="sort('status')" class="sortable">
+                            Status {{ getSortIcon('status') }}
+                        </th>
+
+                        <th (click)="sort('basicSalary')" class="sortable col-hide-sm">
+                            Salary {{ getSortIcon('basicSalary') }}
+                        </th>
+
+                        <th class="col-actions">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (e of paged; track e.id; let i = $index) {
+                        <tr class="table-row" (click)="viewDetail(e.id)">
+                            <td class="cell-id">
+                                {{ (page - 1) * pageSize + i + 1 }}
+                            </td>
+
+                            <td>
+                                <div class="employee-name">
+                                    <div class="avatar">
+                                        {{ e.firstName[0] }}{{ e.lastName[0] }}
+                                    </div>
+
+                                    <div class="name-info">
+                                        <div class="name-full">
+                                            {{ e.firstName }} {{ e.lastName }}
+                                        </div>
+
+                                        <div class="name-email">
+                                            {{ e.email }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="cell-mono col-hide-md">
+                                {{ e.username }}
+                            </td>
+
+                            <td class="col-hide-sm">
+                                <span class="group-tag">
+                                    {{ e.group }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="badge" [class]="getBadgeClass(e.status)">
+                                    {{ e.status }}
+                                </span>
+                            </td>
+
+                            <td class="cell-salary col-hide-sm">
+                                {{ formatCurrency(e.basicSalary) }}
+                            </td>
+
+                            <td class="cell-actions" (click)="$event.stopPropagation()">
+                                <button
+                                    class="btn btn-warning btn-sm"
+                                    (click)="onEdit(e)"
+                                    title="Edit"
+                                >
+                                    ✎
+                                </button>
+
+                                <button
+                                    class="btn btn-danger btn-sm"
+                                    (click)="onDelete(e)"
+                                    title="Delete"
+                                >
+                                    ✕
+                                </button>
+                            </td>
+                        </tr>
+                    }
+
+                    @if (paged.length === 0) {
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                <div class="empty-inner">
+                                    <span>🔍</span>
+
+                                    <p>No employees found matching your search.</p>
+
+                                    <button
+                                        class="btn btn-secondary btn-sm"
+                                        (click)="clearSearch()"
+                                    >
+                                        Clear filters
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages > 1) {
+            <div class="pagination">
+                <button class="page-btn" (click)="goPage(1)" [disabled]="page === 1" title="First">
+                    «
+                </button>
+
+                <button
+                    class="page-btn"
+                    (click)="goPage(page - 1)"
+                    [disabled]="page === 1"
+                    title="Prev"
+                >
+                    ‹
+                </button>
+
+                @for (p of getPages(); track p) {
+                    <button class="page-btn" [class.active]="p === page" (click)="goPage(p)">
+                        {{ p }}
+                    </button>
+                }
+
+                <button
+                    class="page-btn"
+                    (click)="goPage(page + 1)"
+                    [disabled]="page === totalPages"
+                    title="Next"
+                >
+                    ›
+                </button>
+
+                <button
+                    class="page-btn"
+                    (click)="goPage(totalPages)"
+                    [disabled]="page === totalPages"
+                    title="Last"
+                >
+                    »
+                </button>
+            </div>
+        }
+    </div>
+</div>

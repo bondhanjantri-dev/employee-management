@@ -1,0 +1,29 @@
+<div class="toast-container">
+    @for (toast of toasts(); track toast.id) {
+        <div class="toast toast-{{ toast.type }}" (click)="remove(toast.id)">
+            <div class="toast-icon">
+                @switch (toast.type) {
+                    @case ('success') {
+                        ✓
+                    }
+
+                    @case ('warning') {
+                        ⚠
+                    }
+
+                    @case ('danger') {
+                        ✕
+                    }
+
+                    @default {
+                        ℹ
+                    }
+                }
+            </div>
+
+            <div class="toast-message">
+                {{ toast.message }}
+            </div>
+        </div>
+    }
+</div>

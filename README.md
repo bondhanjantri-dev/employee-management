@@ -1,59 +1,141 @@
-# EmployeeManagement
+# Employee Management
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.27.
+Mini project Employee Management yang dibuat menggunakan Angular 20.
 
-## Development server
+## Features
 
-To start a local development server, run:
+### Login Page
+
+* Login menggunakan username dan password.
+* Validasi login menggunakan data dummy (hardcoded).
+* Proteksi halaman menggunakan Auth Guard.
+
+### Employee List Page
+
+* Menampilkan lebih dari 100 data employee dummy.
+* Searching berdasarkan:
+
+  * Name
+  * Group
+* Sorting data pada tabel.
+* Pagination.
+* Pengaturan jumlah data per halaman.
+* Add Employee.
+* Edit Employee.
+* Delete Employee dengan notifikasi.
+
+### Add Employee Page
+
+* Seluruh field wajib diisi.
+* Validasi format email.
+* Validasi salary hanya menerima angka.
+* Birth Date tidak boleh melebihi tanggal hari ini.
+* Group menggunakan dropdown dengan data dummy.
+
+### Employee Detail Page
+
+* Menampilkan detail employee.
+* Format salary menggunakan format Rupiah.
+* Tombol kembali ke Employee List.
+* State pencarian dan pagination tetap dipertahankan saat kembali ke halaman list.
+
+## Technology Stack
+
+* Angular 20
+* TypeScript
+* SCSS
+* Angular Router
+* Reactive Forms
+
+## Environment
+
+Pastikan environment berikut telah terinstall:
+
+* Node.js 22.x atau lebih baru
+* npm 10.x atau lebih baru
+* Angular CLI 20.x
+
+Cek versi:
+
+```bash
+node -v
+npm -v
+ng version
+```
+
+## Installation
+
+Clone repository:
+
+```bash
+git clone <repository-url>
+```
+
+Masuk ke folder project:
+
+```bash
+cd employee-management
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+---
+
+## Running Application
+
+Jalankan aplikasi:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Buka browser:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Build Application
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Hasil build akan tersedia pada folder:
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```text
+dist/
 ```
 
-## Running end-to-end tests
+## Dummy Login Account
 
-For end-to-end (e2e) testing, run:
+| Username | Password |
+| -------- | -------- |
+| admin    | admin123 |
+| hr       | hr123    |
 
-```bash
-ng e2e
+## Project Structure
+
+```text
+src/
+├── components/
+│   ├── pages/
+│   │   ├── login/
+│   │   ├── employee/
+│   │   │   ├── employeelist/
+│   │   │   └── employeedetail/
+├── guards/
+├── services/
+├── models/
+├── app.routes.ts
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Notes
 
-## Additional Resources
+* Data employee menggunakan dummy data.
+* Data disimpan pada memory (tidak menggunakan backend/API).
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

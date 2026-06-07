@@ -1,0 +1,326 @@
+<div class="page-wrapper">
+    <div class="page-header">
+        <div class="breadcrumb">
+            <a class="back-link" (click)="onCancel()"> ← Employees </a>
+        </div>
+
+        <div class="header-row">
+            <div>
+                @if (mode === 'detail') {
+                    <h1 class="page-title">Employee Detail</h1>
+
+                    <p class="page-sub">Employee information</p>
+                } @else if (mode === 'edit') {
+                    <h1 class="page-title">Edit Employee</h1>
+
+                    <p class="page-sub">
+                        Update data for
+                        <strong>
+                            {{ employee?.firstName }}
+                            {{ employee?.lastName }}
+                        </strong>
+                    </p>
+                } @else {
+                    <h1 class="page-title">Add New Employee</h1>
+
+                    <p class="page-sub">Fill in the form below to create a new employee record.</p>
+                }
+            </div>
+
+            @if (mode === 'edit') {
+                <div class="emp-id-badge">#{{ employee?.id }}</div>
+            }
+        </div>
+    </div>
+
+    @if (mode === 'detail' && employee) {
+        <div class="detail-layout">
+            <div class="card profile-card">
+                <div class="profile-avatar">
+                    {{ getInitials(employee) }}
+                </div>
+
+                <h2 class="profile-name">
+                    {{ employee.firstName }}
+                    {{ employee.lastName }}
+                </h2>
+
+                <p class="profile-username">&#64;{{ employee.username }}</p>
+
+                <span class="badge" [class]="getBadgeClass(employee.status)">
+                    {{ employee.status }}
+                </span>
+
+                <div class="profile-group">
+                    {{ employee.group }}
+                </div>
+            </div>
+
+            <div class="card details-card">
+                <div class="details-section">
+                    <h3 class="section-label">Personal Information</h3>
+
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Full Name</span>
+                            <span class="detail-value">
+                                {{ employee.firstName }}
+                                {{ employee.lastName }}
+                            </span>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-label">Email Address</span>
+                            <span class="detail-value">
+                                {{ employee.email }}
+                            </span>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-label">Date of Birth</span>
+                            <span class="detail-value">
+                                {{ formatDate(employee.birthDate) }}
+                            </span>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-label">Age</span>
+                            <span class="detail-value">
+                                {{ getAge(employee.birthDate) }} years old
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <h3 class="section-label">Employment Information</h3>
+
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Username</span>
+                            <span class="detail-value mono">
+                                {{ employee.username }}
+                            </span>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-label">Employee ID</span>
+                            <span class="detail-value mono"> #{{ employee.id }} </span>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-label">Department / Group</span>
+                            <span class="detail-value">
+                                {{ employee.group }}
+                            </span>
+                        </div>
+
+                        <div class="detail-item">
+                            <span class="detail-label">Employment Status</span>
+
+                            <span class="badge" [class]="getBadgeClass(employee.status)">
+                                {{ employee.status }}
+                            </span>
+                        </div>
+
+                        <div class="detail-item full">
+                            <span class="detail-label">Basic Salary</span>
+
+                            <span class="detail-value salary">
+                                {{ formatCurrency(employee.basicSalary) }}
+                            </span>
+                        </div>
+
+                        <div class="detail-item full">
+                            <span class="detail-label">Description / Notes</span>
+
+                            <span class="detail-value">
+                                {{ employee.description }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary" (click)="goBack()">
+                        ← Back to List
+                    </button>
+                </div>
+            </div>
+        </div>
+    } @else {
+        <div class="card form-card">
+            <form [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+                <div class="form-grid">
+                    <div class="section-title">Personal Information</div>
+
+                    <div class="form-group">
+                        <label>
+                            First Name
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="firstName"
+                            placeholder="e.g. Budi"
+                            [class.is-invalid]="isInvalid('firstName')"
+                        />
+
+                        @if (isInvalid('firstName')) {
+                            <div class="error-msg">First name is required.</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Last Name
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="lastName"
+                            placeholder="e.g. Santoso"
+                            [class.is-invalid]="isInvalid('lastName')"
+                        />
+
+                        @if (isInvalid('lastName')) {
+                            <div class="error-msg">Last name is required.</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Username
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="username"
+                            placeholder="e.g. budi.santoso"
+                            [class.is-invalid]="isInvalid('username')"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Email
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            formControlName="email"
+                            placeholder="e.g. budi@company.com"
+                            [class.is-invalid]="isInvalid('email')"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Birth Date
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            formControlName="birthDate"
+                            [max]="todayStr"
+                            [class.is-invalid]="isInvalid('birthDate')"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            Basic Salary (Rp)
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            formControlName="basicSalary"
+                            min="1"
+                            [class.is-invalid]="isInvalid('basicSalary')"
+                        />
+                    </div>
+
+                    <div class="section-title">Employment Details</div>
+
+                    <div class="form-group">
+                        <label>
+                            Status
+                            <span class="req">*</span>
+                        </label>
+
+                        <select class="form-control" formControlName="status">
+                            <option value="">— Select status —</option>
+
+                            @for (s of statuses; track s) {
+                                <option [value]="s">
+                                    {{ s }}
+                                </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="position: relative">
+                        <label>
+                            Group
+                            <span class="req">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="groupSearch"
+                            [ngModelOptions]="{ standalone: true }"
+                            (focus)="openGroupDropdown()"
+                            (input)="filterGroups()"
+                        />
+
+                        @if (showGroupDropdown) {
+                            <div class="dropdown-list">
+                                @for (g of filteredGroups; track g) {
+                                    <div class="dropdown-item" (mousedown)="selectGroup(g)">
+                                        {{ g }}
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>
+                            Description
+                            <span class="req">*</span>
+                        </label>
+
+                        <textarea
+                            class="form-control"
+                            formControlName="description"
+                            rows="3"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <button type="button" class="btn btn-secondary" (click)="onCancel()">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        {{ mode === 'edit' ? 'Save Changes' : 'Save Employee' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    }
+</div>
