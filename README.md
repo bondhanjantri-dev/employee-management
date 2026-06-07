@@ -149,3 +149,8 @@ src/
 * Data employee menggunakan dummy data.
 * Data disimpan pada memory (tidak menggunakan backend/API).
 
+## Live Demo
+
+```
+https://employee-management-seven-hazel.vercel.app/login
+```
